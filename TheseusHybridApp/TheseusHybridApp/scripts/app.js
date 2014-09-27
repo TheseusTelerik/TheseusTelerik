@@ -9,19 +9,13 @@
     window.APP = {
       models: {
         home: {
-          title: 'Home'
+          title: 'Home data (maybe project title with image)'
         },
-        settings: {
-          title: 'Settings'
+        sounds: {
+          title: 'all recorded sounds ordered by datetime desc(list view)'
         },
-        contacts: {
-          title: 'Contacts',
-          ds: new kendo.data.DataSource({
-            data: [{ id: 1, name: 'Bob' }, { id: 2, name: 'Mary' }, { id: 3, name: 'John' }]
-          }),
-          alert: function(e) {
-            alert(e.data.name);
-          }
+        pictures: {
+          title: 'all pictures ordered by datetime desc (grid view)'
         }
       }
     };
@@ -36,7 +30,7 @@
       app = new kendo.mobile.Application(document.body, {
         
         // you can change the default transition (slide, zoom or fade)
-        transition: 'slide',
+        // transition: 'slide',
         
         // comment out the following line to get a UI which matches the look
         // and feel of the operating system
