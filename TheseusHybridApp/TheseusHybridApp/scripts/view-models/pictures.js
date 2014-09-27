@@ -2,7 +2,25 @@ var app = app || {};
 app.viewmodels = app.viewmodels || {};
 
 (function (scope) {
+    var location = {};
+    var currentDownloadedPicLocation = {};
+
     scope.allPictures = function () {
+        var error = function (error) {
+            navigator.notification.alert("Unable to get location");
+        };
+        var geoConfig = {
+            enableHighAccuracy: true
+        };
+        var geoSuccess = function (data) {
+            location = {
+                longitude: data.coords.longitude,
+                latitude: data.coords.latitude
+            };
+        };
+
+        navigator.geolocation.getCurrentPosition(geoSuccess, error, geoConfig);
+
         window.everlive.data('Pics').get()
                 .then(function (data) {
                     var files = [];
@@ -10,18 +28,34 @@ app.viewmodels = app.viewmodels || {};
                         $.ajax({
                             type: "GET",
                             url: 'http://api.everlive.com/v1/DFFH77PjPzvO7vLe/Files/' + file.Pic,
-                            //headers: { "Authorization" : "Bearer your-access-token-here" },
                             contentType: "application/json",
                         }).then(function (picData) {
+                            currentDownloadedPicLocation = {
+                                longitude: file.Location.longitude,
+                                latitude: file.Location.latitude
+                            };
+                            console.log(currentDownloadedPicLocation)
+                            var dlat = (currentDownloadedPicLocation.latitude - location.latitude) / 180 * Math.PI;
+                            var dlon = (currentDownloadedPicLocation.longitude - location.longitude) / 180 * Math.PI;
+                            var x = (dlon) * Math.cos((location.latitude + currentDownloadedPicLocation.latitude) / 2 / 180 * Math.PI);
+                            var d = Math.sqrt(x * x + dlat * dlat) * 6371
+                            console.log(d);
+
                             files.push({
                                 'imageUrl': picData.Result.Uri,
-                                'location': file.Location
+                                'location': file.Location,
+                                'title': file.Title,
+                                'distance': d
                             });
                         })
                         .then(function () {
+                            //files.Location.forEach(function (file) {
+                            //    console.log(file.location)
+                            //});
+                            
                             $("#images").kendoMobileListView({
                                 dataSource: files,
-                                template: "<img src='#= data.imageUrl #'>",
+                                template: "<h3>'#=data.title#'</h3><span>'#= data.distance #' kilometers away</span><img src='#= data.imageUrl #' width='75%'/>",
 
                             });
                         });
@@ -31,8 +65,9 @@ app.viewmodels = app.viewmodels || {};
 
     scope.pictures = kendo.observable({
         addPicture: function () {
+            var that = this;
             console.log('Saved')
-            var location = {};
+            //var location = {};
 
             var picSuccess = function (data) {
                 var id;
@@ -44,13 +79,16 @@ app.viewmodels = app.viewmodels || {};
                     function (picData) {
                         window.everlive.data('Pics').create({
                             'Pic': picData.result.Id,
-                            'Location': location
+                            'Location': location,
+                            'Title': that.get('title'),
                         }, function (data) {
                             console.log(data);
+                            navigator.notification.vibrate(1500);
+                            scope.allPictures();
                         }, error);
                     }, error);
 
-                navigator.notification.vibrate(2500);
+
             };
             var error = function (error) {
                 navigator.notification.alert("Unfortunately we could not add the image");
@@ -76,6 +114,6 @@ app.viewmodels = app.viewmodels || {};
             navigator.geolocation.getCurrentPosition(geoSuccess, error, geoConfig);
         },
 
-        title: 'All Pictures',
+        title: ''
     });
 }(app.viewmodels));

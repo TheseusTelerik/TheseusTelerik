@@ -30,6 +30,7 @@
     <Content Include="scripts\view-models\soundOperations.js">
       <SubType>Content</SubType>
     </Content>
+    <Content Include="styles\additional-styling.css" />
     <Content Include="views\recording.html">
       <SubType>Content</SubType>
     </Content>

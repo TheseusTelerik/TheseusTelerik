@@ -1,5 +1,8 @@
 <div data-role="view" data-title="Pictures" data-layout="main" data-model="app.viewmodels.pictures"
-     data-show="app.viewmodels.allPictures">
+     data-show="app.viewmodels.allPictures" class="vm-pictures">
+    <label for="tb-title">Title:</label>
+    <input type="text" id="tb-title"
+           data-bind="value: title" />
     <ul id="images"></ul>
     <div data-role="footer">
         <div data-role="tabstrip">
