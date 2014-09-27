@@ -15,14 +15,14 @@
           title: 'all recorded sounds ordered by datetime desc(list view)'
         },
         pictures: {
-          title: 'all pictures ordered by datetime desc (grid view)'
+            title: 'all pictures ordered by datetime desc (grid view)'
         }
       }
     };
 
     // this function is called by Cordova when the application is loaded by the device
     document.addEventListener('deviceready', function () {  
-      
+        window.everlive = new Everlive("DFFH77PjPzvO7vLe");
       // hide the splash screen as soon as the app is ready. otherwise
       // Cordova will wait 5 very long seconds to do it for you.
       navigator.splashscreen.hide();
