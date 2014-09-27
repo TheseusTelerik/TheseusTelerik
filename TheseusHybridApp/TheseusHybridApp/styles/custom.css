@@ -1,9 +1,9 @@
 .recording {
-    font-size: 30px;
+    /*font-size: 30px;*/
     background-position: center;
     background-color: red;
     /*border-radius: 100px;*/
-    /*border: none;*/
+    border: none;
     text-align: center;
     width: 60;
     height: 60px;
