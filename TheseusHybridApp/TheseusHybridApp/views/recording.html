@@ -1,0 +1,13 @@
+<div data-role="view" data-title="Recording" data-layout="main">
+    <h1 data-bind="html: title"></h1>
+    <button onclick="recordAudio()" class="recording" id="captureAudio">Record</button>
+    <!-- <button onclick="pauseAudio()" class="recording" id="captureAudio">Pause</button> -->
+    <button onclick="stopAudio()" class="recording" id="captureAudio">Stop</button>
+    <p id="media"></p>
+    <p id="audio_position"></p>
+    <div data-role="footer">
+        <div data-role="tabstrip">
+            <a href="views/sounds.html" data-icon="reply">Back</a> 
+        </div>
+    </div>
+</div>
