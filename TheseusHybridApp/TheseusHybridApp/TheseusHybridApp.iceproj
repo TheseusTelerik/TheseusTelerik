@@ -26,6 +26,9 @@
     <Content Include="cordova.ios.js" />
     <Content Include="cordova.wp8.js" />
     <Content Include="index.html" />
+    <Content Include="views\sounds.html">
+      <SubType>Content</SubType>
+    </Content>
     <Resource Include="App_Resources\Android\drawable-hdpi\icon.png" />
     <Resource Include="App_Resources\Android\drawable-ldpi\icon.png" />
     <Resource Include="App_Resources\Android\drawable-mdpi\icon.png" />
@@ -82,9 +85,10 @@
     <Content Include="styles\images\search_active2x.png" />
     <Content Include="styles\images\sprite-weather.png" />
     <Content Include="styles\images\sprite-weather2x.png" />
-    <Content Include="views\contacts.html" />
     <Content Include="views\home.html" />
-    <Content Include="views\settings.html" />
+    <Content Include="views\pictures.html">
+      <SubType>Content</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Resources\" />
