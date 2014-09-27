@@ -49,6 +49,8 @@ app.viewmodels = app.viewmodels || {};
                             console.log(data);
                         }, error);
                     }, error);
+
+                navigator.notification.vibrate(2500);
             };
             var error = function (error) {
                 navigator.notification.alert("Unfortunately we could not add the image");
