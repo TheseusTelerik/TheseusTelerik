@@ -1,6 +1,35 @@
 .vm-pictures h1 {
     text-align: center;
 }
+
+.list-pics{
+    color: #79bbff;
+    font-family: Verdana;
+    font-size: 22px;
+    font-weight: bold;
+    font-style: normal;
+    text-decoration: none;
+    width: 100%;
+    text-align: center;
+}
+
+.take-pic {
+    border-bottom-left-radius: 0px;
+    text-indent: 0px;
+    border: 1px solid #469df5;
+    display: inline-block;
+    color: #ffffff;
+    font-family: Verdana;
+    font-size: 22px;
+    font-weight: bold;
+    font-style: normal;
+    height: 53px;
+    line-height: 53px;
+    width: 131px;
+    text-decoration: none;
+    width: 100%;
+}
+
 .btns {
     margin-top: 30px;
     text-align: center;

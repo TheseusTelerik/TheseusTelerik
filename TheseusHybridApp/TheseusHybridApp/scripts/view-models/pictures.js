@@ -52,10 +52,10 @@ app.viewmodels = app.viewmodels || {};
                             //files.Location.forEach(function (file) {
                             //    console.log(file.location)
                             //});
-                            
+
                             $("#images").kendoMobileListView({
                                 dataSource: files,
-                                template: "<h3>'#=data.title#'</h3><span>'#= data.distance #' kilometers away</span><img src='#= data.imageUrl #' width='75%'/>",
+                                template: "<li ><div class='list-pics'>'#=data.title#'</div><div class='list-pics'>'#= data.distance #' kilometers away</div><div class='list-pics'><img src='#= data.imageUrl #' width='75%'/></div></li>",
 
                             });
                         });
@@ -95,8 +95,8 @@ app.viewmodels = app.viewmodels || {};
             };
             var picConfig = {
                 destinationType: Camera.DestinationType.DATA_URL,
-                targetHeight: 300,
-                targetWidth: 300
+                targetHeight: 600,
+                targetWidth: 600
             };
             var geoConfig = {
                 enableHighAccuracy: true

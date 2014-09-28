@@ -31,6 +31,7 @@
       <SubType>Content</SubType>
     </Content>
     <Content Include="styles\additional-styling.css" />
+    <Content Include="views\new-picture.html" />
     <Content Include="views\recording.html">
       <SubType>Content</SubType>
     </Content>
