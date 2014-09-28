@@ -111,7 +111,6 @@
                     recInterval = null;
                     document.getElementById('audio_position').innerHTML = '';
                     showAlert();
-
                 }
 
                  // onSuccess Callback
