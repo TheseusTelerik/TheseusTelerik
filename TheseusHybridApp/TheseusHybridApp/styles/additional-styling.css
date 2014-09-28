@@ -1,10 +1,41 @@
 .vm-pictures h1 {
     text-align: center;
 }
-.btns {
-    margin-top: 30px;
+
+input-title {
+    display: inline-block;
+    height: 30px;
+    border: none;
+}
+
+.list-pics{
+    color: #79bbff;
+    font-family: Verdana;
+    font-size: 22px;
+    font-weight: bold;
+    font-style: normal;
+    text-decoration: none;
+    width: 100%;
     text-align: center;
 }
+
+.take-pic {
+    border-bottom-left-radius: 0px;
+    text-indent: 0px;
+    border: 1px solid #469df5;
+    display: inline-block;
+    color: #ffffff;
+    font-family: Verdana;
+    font-size: 22px;
+    font-weight: bold;
+    font-style: normal;
+    height: 53px;
+    line-height: 53px;
+    width: 131px;
+    text-decoration: none;
+    width: 100%;
+}
+
 .recording {
     -moz-box-shadow: inset 0px 1px 20px -22px #cae3fc;
     -webkit-box-shadow: inset 0px 1px 20px -22px #cae3fc;
@@ -38,10 +69,12 @@
     width: 131px;
     text-decoration: none;
 }
-.recording:active {
-    position: relative;
-    top: 1px;
-}
+
+    .recording:active {
+        position: relative;
+        top: 1px;
+    }
+
 #audio_position {
     font-weight: normal;
     text-transform: uppercase;

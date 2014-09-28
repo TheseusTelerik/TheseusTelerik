@@ -1,0 +1,15 @@
+<div data-role="view" data-title="New Picture" data-layout="main" data-model="app.viewmodels.pictures"
+     data-show="app.viewmodels.allPictures">
+    <div class="take-pic">
+        <label for="tb-title" class="recording">Title:</label>
+        <input type="text" id="tb-title"
+               data-bind="value: title" class="input-title" />
+        <button data-bind="events: {click: addPicture}" class="recording">Capture</button>
+    </div>
+
+    <div data-role="footer">
+        <div data-role="tabstrip">
+            <a href="views/pictures.html" data-icon="reply" data-bind="events: {click: addPicture}">Back</a>
+        </div>
+    </div>
+</div>
