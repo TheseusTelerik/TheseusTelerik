@@ -3,7 +3,7 @@ app.viewmodels = app.viewmodels || {};
 
 (function (scope) {
     var location = {};
-    var currentDownloadedPicLocation = {};
+    var currentDownloadedSoundLocation = {};
 
     scope.allSounds = function () {
         var error = function (error) {
@@ -27,14 +27,14 @@ app.viewmodels = app.viewmodels || {};
                            url: 'http://api.everlive.com/v1/DFFH77PjPzvO7vLe/Files/' + file.Sound,
                            contentType: "application/json",
                        }).then(function (soundData) {
-                           currentDownloadedPicLocation = {
+                           currentDownloadedSoundLocation = {
                                longitude: file.Location.longitude,
                                latitude: file.Location.latitude
                            };
-                           console.log(currentDownloadedPicLocation)
-                           var dlat = (currentDownloadedPicLocation.latitude - location.latitude) / 180 * Math.PI;
-                           var dlon = (currentDownloadedPicLocation.longitude - location.longitude) / 180 * Math.PI;
-                           var x = (dlon) * Math.cos((location.latitude + currentDownloadedPicLocation.latitude) / 2 / 180 * Math.PI);
+                           console.log(currentDownloadedSoundLocation)
+                           var dlat = (currentDownloadedSoundLocation.latitude - location.latitude) / 180 * Math.PI;
+                           var dlon = (currentDownloadedSoundLocation.longitude - location.longitude) / 180 * Math.PI;
+                           var x = (dlon) * Math.cos((location.latitude + currentDownloadedSoundLocation.latitude) / 2 / 180 * Math.PI);
                            var d = Math.sqrt(x * x + dlat * dlat) * 6371
                            console.log(d);
 
