@@ -5,7 +5,7 @@ app.viewmodels = app.viewmodels || {};
     var location = {};
     var currentDownloadedPicLocation = {};
 
-    scope.allPictures = function () {
+    scope.allSounds = function () {
         var error = function (error) {
             navigator.notification.alert("Unable to get location");
         };
@@ -18,15 +18,15 @@ app.viewmodels = app.viewmodels || {};
                 latitude: data.coords.latitude
             };
 
-            window.everlive.data('Pics').get()
+            window.everlive.data('Sounds').get()
                .then(function (data) {
                    var files = [];
                    data.result.forEach(function (file) {
                        $.ajax({
                            type: "GET",
-                           url: 'http://api.everlive.com/v1/DFFH77PjPzvO7vLe/Files/' + file.Pic,
+                           url: 'http://api.everlive.com/v1/DFFH77PjPzvO7vLe/Files/' + file.Sound,
                            contentType: "application/json",
-                       }).then(function (picData) {
+                       }).then(function (soundData) {
                            currentDownloadedPicLocation = {
                                longitude: file.Location.longitude,
                                latitude: file.Location.latitude
@@ -39,7 +39,7 @@ app.viewmodels = app.viewmodels || {};
                            console.log(d);
 
                            files.push({
-                               'imageUrl': picData.Result.Uri,
+                               'imageUrl': soundData.Result.Uri,
                                'location': file.Location,
                                'title': file.Title,
                                'distance': d
@@ -50,9 +50,9 @@ app.viewmodels = app.viewmodels || {};
                            //    console.log(file.location)
                            //});
 
-                           $("#images").kendoMobileListView({
+                           $("#sounds").kendoMobileListView({
                                dataSource: files,
-                               template: "<li ><div class='list-pics'>#=data.title#</div><div class='list-pics'>'#= data.distance #' kilometers away</div><div class='list-pics'><img src='#= data.imageUrl #' width='75%'/></div></li>",
+                               template: "<li ><div class='list-pics'>#=data.title#</div><div class='list-pics'>'#= data.distance #' kilometers away</div><div class='list-pics'><audio controls=\"controls\"><source src='#= data.imageUrl #' width='75%'/></audio></div></li>",
 
                            });
                        });
@@ -60,43 +60,18 @@ app.viewmodels = app.viewmodels || {};
                });
         };
 
-        navigator.geolocation.getCurrentPosition(geoSuccess, error, geoConfig);       
-    }
+        navigator.geolocation.getCurrentPosition(geoSuccess, error, geoConfig);
+        console.log('rec');
+    },
 
-    scope.pictures = kendo.observable({
-        addPicture: function () {
+    scope.sounds = kendo.observable({
+        reccord: function () {
             var that = this;
-            console.log('Saved')
-
-            var picSuccess = function (data) {
-                var id;
-                window.everlive.Files.create({
-                    Filename: Math.random().toString(36).substring(2, 15) + ".jpg",
-                    ContentType: "image/jpeg",
-                    base64: data
-                },
-                    function (picData) {
-                        window.everlive.data('Pics').create({
-                            'Pic': picData.result.Id,
-                            'Location': location,
-                            'Title': that.get('title'),
-                        }, function (data) {
-                            navigator.notification.vibrate(1500);
-                            alert('Picture successfully uploaded');
-                            
-                        }, error);
-                    }, error);
-
-
-            };
+            console.log('new rec')
             var error = function (error) {
-                navigator.notification.alert("Unfortunately we could not add the image");
+                navigator.notification.alert("Unfortunately we could not add the sound");
             };
-            var picConfig = {
-                destinationType: Camera.DestinationType.DATA_URL,
-                targetHeight: 600,
-                targetWidth: 600
-            };
+
             var geoConfig = {
                 enableHighAccuracy: true
             };
@@ -105,9 +80,40 @@ app.viewmodels = app.viewmodels || {};
                     longitude: data.coords.longitude,
                     latitude: data.coords.latitude
                 };
-
-                navigator.camera.getPicture(picSuccess, error, picConfig);
                 console.log(location);
+                navigator.device.capture.captureAudio(function (mediaFiles) {
+                    console.log('capture audio')
+
+                    var options = new FileUploadOptions();
+                    var ft = new FileTransfer();
+                    var fileURI = mediaFiles[0].fullPath;
+                    var uploadUrl = window.everlive.Files.getUploadUrl();
+                    alert(fileURI);
+
+                    options.fileKey = "file";
+                    options.fileName = fileURI.substr(fileURI.lastIndexOf('/') + 1);
+                    options.mimeType = "audio/wav";
+                    options.headers = window.everlive.buildAuthHeader();
+
+                    ft.upload(fileURI, uploadUrl, function (resp) {
+                        var data = JSON.parse(resp.response);
+                        var uploadedFileId = data.Result[0].Id;
+                        var uploadedFileUri = data.Result[0].Uri;
+                        window.everlive.data('Sounds').create({
+                            'Sound': uploadedFileId,
+                            'Location': location,
+                            'Title': that.get('title'),
+                        }, function (data) {
+                            navigator.notification.vibrate(1500);
+                            alert('Audio File successfully uploaded');
+                           
+                        }, error);
+                    }, function (error) {
+                        alert("Sorry! Something went wrong. Please try again.");
+                    }, options);
+
+                }, { limit: 1 });
+
             };
 
             navigator.geolocation.getCurrentPosition(geoSuccess, error, geoConfig);

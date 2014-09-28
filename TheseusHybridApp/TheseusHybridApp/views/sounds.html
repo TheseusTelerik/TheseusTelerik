@@ -1,12 +1,12 @@
-<div data-role="view" data-title="Sounds" data-layout="main" data-model="APP.models.sounds">
-    <h1 data-bind="html: title"></h1>
+<div data-role="view" data-title="Sounds" data-layout="main" data-model="app.viewmodels.sounds"
+     data-show="app.viewmodels.allSounds" class="vm-pictures">
+
     <ul id="sounds"></ul>
     <div data-role="footer">
-    <div data-role="tabstrip">
-        <a href="views/home.html" data-icon="reply">Back</a> 
-        <a href="views/recording.html" data-icon="sounds">Record New Audio</a>
-        <a href="views/home.html" data-icon="search">Search</a>
+        <div data-role="tabstrip">
+            <a href="views/home.html" data-icon="reply">Back</a>
+            <a href="views/new-sound.html" data-icon="sounds">Record New Audio</a>
+            <a href="views/home.html" data-icon="search">Search</a>
+        </div>
     </div>
 </div>
-</div>
-

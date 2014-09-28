@@ -1,0 +1,17 @@
+<div data-role="view" data-title="New Sound" data-layout="main" data-model="app.viewmodels.sounds">
+    <h1> data-bind="html: title"></h1>
+    <label for="sound-title" class="recording">Title:</label>
+    <input type="text" id="sound-title"
+           data-bind="value: title" class="input-title" />
+    <div class="btns">
+        <button data-bind="events: {click: reccord}" class="recording" id="captureAudio">Record</button>
+        <!-- <button onclick="pauseAudio()" class="recording" id="captureAudio">Pause</button> -->
+        <!--<button class="recording" id="captureAudio">Stop</button>-->
+    </div>
+
+    <div data-role="footer">
+        <div data-role="tabstrip"> 
+            <a href="views/sounds.html" data-icon="reply">Back</a>
+        </div>
+    </div>
+</div>
