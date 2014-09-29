@@ -52,7 +52,7 @@ app.viewmodels = app.viewmodels || {};
 
                            $("#images").kendoMobileListView({
                                dataSource: files,
-                               template: "<li ><div class='list-pics'>#=data.title#</div><div class='list-pics'>'#= data.distance #' kilometers away</div><div class='list-pics'><img src='#= data.imageUrl #' width='75%'/></div></li>",
+                               template: "<li ><div class='list-pics'>#=data.title#</div><div class='list-pics'>#= data.distance # kilometers away</div><div class='list-pics'><img src=#= data.imageUrl # width='75%'/></div></li>",
 
                            });
                        });

@@ -52,7 +52,7 @@ app.viewmodels = app.viewmodels || {};
 
                            $("#sounds").kendoMobileListView({
                                dataSource: files,
-                               template: "<li ><div class='list-pics'>#=data.title#</div><div class='list-pics'>'#= data.distance #' kilometers away</div><div class='list-pics'><audio controls=\"controls\"><source src='#= data.imageUrl #' width='75%'/></audio></div></li>",
+                               template: "<li ><div class='list-pics'>#=data.title#</div><div class='list-pics'>#= data.distance # kilometers away</div><div class='list-pics'><audio controls=\"controls\"><source src=#= data.imageUrl # width='75%'/></audio></div></li>",
 
                            });
                        });
@@ -80,10 +80,8 @@ app.viewmodels = app.viewmodels || {};
                     longitude: data.coords.longitude,
                     latitude: data.coords.latitude
                 };
-                console.log(location);
+                navigator.notification.beep(1);
                 navigator.device.capture.captureAudio(function (mediaFiles) {
-                    console.log('capture audio')
-
                     var options = new FileUploadOptions();
                     var ft = new FileTransfer();
                     var fileURI = mediaFiles[0].fullPath;
