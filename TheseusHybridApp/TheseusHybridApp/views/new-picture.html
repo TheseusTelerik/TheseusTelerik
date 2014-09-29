@@ -3,7 +3,9 @@
         <label for="tb-title" class="recording">Title:</label>
         <input type="text" id="tb-title"
                data-bind="value: title" class="input-title" />
-        <button data-bind="events: {click: addPicture}" class="recording">Capture</button>
+        <div class="btns">
+            <button data-bind="events: {click: addPicture}" class="recording">Capture</button>
+        </div>
     </div>
 
     <div data-role="footer">

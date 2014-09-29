@@ -39,7 +39,7 @@ app.viewmodels = app.viewmodels || {};
                            var d = Math.sqrt(x * x + dlat * dlat) * 6371
 
                            files.push({
-                               'imageUrl': soundData.Result.Uri,
+                               'soundUrl': soundData.Result.Uri,
                                'location': file.Location,
                                'title': file.Title,
                                'distance': d
@@ -48,7 +48,7 @@ app.viewmodels = app.viewmodels || {};
                        .then(function () {
                            $("#sounds").kendoMobileListView({
                                dataSource: files,
-                               template: "<li ><div class='list-pics'>#=data.title#</div><div class='list-pics'>#= data.distance # kilometers away</div><div class='list-pics'><audio controls=\"controls\"><source src=#= data.imageUrl # width='75%'/></audio></div></li>",
+                               template: "<li ><div class='list-pics'>#=data.title#</div><div class='list-pics'>#= data.distance # kilometers away</div><div class='list-pics'><audio controls=\"controls\"><source src=#= data.soundUrl # width='75%'/></audio></div></li>",
 
                            });
                        });
