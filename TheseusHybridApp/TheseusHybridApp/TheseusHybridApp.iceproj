@@ -26,6 +26,8 @@
     <Content Include="cordova.ios.js" />
     <Content Include="cordova.wp8.js" />
     <Content Include="index.html" />
+    <Content Include="scripts\view-models\newPicture.js" />
+    <Content Include="scripts\view-models\newSound.js" />
     <Content Include="scripts\view-models\pictures.js" />
     <Content Include="scripts\view-models\soundOperations.js">
       <SubType>Content</SubType>

@@ -2,6 +2,8 @@ var app = app || {};
 app.viewmodels = app.viewmodels || {};
 
 (function (scope) {
+    var FILES_REPOSITORY = 'http://api.everlive.com/v1/DFFH77PjPzvO7vLe/Files/';
+
     var location = {};
     var currentDownloadedPicLocation = {};
 
@@ -24,7 +26,7 @@ app.viewmodels = app.viewmodels || {};
                    data.result.forEach(function (file) {
                        $.ajax({
                            type: "GET",
-                           url: 'http://api.everlive.com/v1/DFFH77PjPzvO7vLe/Files/' + file.Pic,
+                           url: FILES_REPOSITORY + file.Pic,
                            contentType: "application/json",
                        }).then(function (picData) {
                            currentDownloadedPicLocation = {
@@ -46,10 +48,6 @@ app.viewmodels = app.viewmodels || {};
                            });
                        })
                        .then(function () {
-                           //files.Location.forEach(function (file) {
-                           //    console.log(file.location)
-                           //});
-
                            $("#images").kendoMobileListView({
                                dataSource: files,
                                template: "<li ><div class='list-pics'>#=data.title#</div><div class='list-pics'>#= data.distance # kilometers away</div><div class='list-pics'><img src=#= data.imageUrl # width='75%'/></div></li>",
@@ -60,59 +58,6 @@ app.viewmodels = app.viewmodels || {};
                });
         };
 
-        navigator.geolocation.getCurrentPosition(geoSuccess, error, geoConfig);       
+        navigator.geolocation.getCurrentPosition(geoSuccess, error, geoConfig);
     }
-
-    scope.pictures = kendo.observable({
-        addPicture: function () {
-            var that = this;
-            console.log('Saved')
-
-            var picSuccess = function (data) {
-                var id;
-                window.everlive.Files.create({
-                    Filename: Math.random().toString(36).substring(2, 15) + ".jpg",
-                    ContentType: "image/jpeg",
-                    base64: data
-                },
-                    function (picData) {
-                        window.everlive.data('Pics').create({
-                            'Pic': picData.result.Id,
-                            'Location': location,
-                            'Title': that.get('title'),
-                        }, function (data) {
-                            navigator.notification.vibrate(1500);
-                            alert('Picture successfully uploaded');
-                            
-                        }, error);
-                    }, error);
-
-
-            };
-            var error = function (error) {
-                navigator.notification.alert("Unfortunately we could not add the image");
-            };
-            var picConfig = {
-                destinationType: Camera.DestinationType.DATA_URL,
-                targetHeight: 600,
-                targetWidth: 600
-            };
-            var geoConfig = {
-                enableHighAccuracy: true
-            };
-            var geoSuccess = function (data) {
-                location = {
-                    longitude: data.coords.longitude,
-                    latitude: data.coords.latitude
-                };
-
-                navigator.camera.getPicture(picSuccess, error, picConfig);
-                console.log(location);
-            };
-
-            navigator.geolocation.getCurrentPosition(geoSuccess, error, geoConfig);
-        },
-
-        title: ''
-    });
 }(app.viewmodels));
